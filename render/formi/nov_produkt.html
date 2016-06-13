@@ -1,0 +1,76 @@
+<div id="nov_produkt_wrap">
+<script type="text/javascript" src="scripts/ajaxupload.js"></script>
+       
+<form action="#" method="post" enctype="multipart/form-data" name="nov_produkt" id="nov_produkt">
+<input type="hidden" id="firma" name="firma" value="firma" />
+
+<table width="100%" border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <th scope="row">Цена:</th>
+    <td><input id="cena" name="cena" type="text"></td>
+    <td>Внесете ја цената на производот.</td>
+  </tr>
+  <tr>
+    <th scope="row">Тип:</th>
+    <td><select id="tip" name="tip">
+		    <option value="Чорапи">Чорапи</option>
+		    <option value="Гаќи">Гаќи</option>
+            <option value="Прслук">Прслук</option>
+            
+            <option value="Мајца">Мајца</option>
+        	<option value="Блуза">Блуза</option>
+            <option value="Фармерки">Фармерки</option>
+            <option value="Панталони">Панталони</option>
+        	<option value="Кошула">Кошула</option>
+            <option value="Палто">Палто</option>
+            <option value="Сако">Сако</option>
+            
+        	<option value="Патики">Патики</option>
+        	<option value="Кондури">Кондури</option>
+            <option value="Чизми">Чизми</option>
+            <option value="Штикли">Штикли</option>
+            
+            <option value="Парфем">Парфем</option>
+            <option value="Шминка">Шминка</option>
+            
+            <option value="Ланче">Ланче</option>
+            <option value="Прстен">Прстен</option>
+            <option value="Обетка">Обетка</option>
+            <option value="Нараквица">Нараквица</option>
+            <option value="Чанта">Чанта</option>
+            
+            <option value="Друго">Друго</option>
+        </select></td>
+    <td>Типот на производ што го внесувате.</td>
+  </tr>
+  <tr>
+    <th scope="row">Слика:</th>
+    <td><input type="file" name="filename" value="Избери слика" />
+							<button onclick="ajaxUpload(this.form,'include/ajaxupload.php?filename=filename&amp;maxSize=3100000&amp;maxW=2000&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=2500','upload_area','Ве молиме почекајте додека да се прикачи сликата...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Грешка при закачувањето.'); return false;">Прикачи слика</button></td>
+    <td><div id="upload_area" class="cistac">Прикачете слика за овој продукт.</div></td>
+  </tr>
+  <tr>
+    <th scope="row" colspan="3">
+    	<button onClick="dodaj_produkt(); return false;">Додади</button>
+        <button onClick="$('#nov_produkt_wrap').remove(); return false;">Затвори</button>
+    </th>
+  </tr>
+</table>
+
+</form>
+<div id="ue_notif"></div>
+
+<script>
+$(document).ready(function() {
+  $('#firma').val(FirmaProfil.user);
+});
+
+function dodaj_produkt() {
+	
+	$.post("include/AJAX/dodaj_produkt.php", $("#nov_produkt").serialize(), function(data){
+	   novaNotifikacija(data, 'ue_notif');
+	});
+}
+
+</script>
+</div>

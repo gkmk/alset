@@ -1,0 +1,20 @@
+<span id="user_id"></span>
+<button id="vidi_profil">Профил</button>
+<button id="admin">Администраторски Панел</button>
+<button id="odjavi_me">Одјави ме</button>
+<span id="user_profil_errors"></span>
+
+<script>
+$('#vidi_profil').bind('click', function() {
+	vcitajSodrzina("render/profil.html", 'cont_sodrzina');
+  });
+  
+ $('#admin').bind('click', function() {
+	 vcitajSodrzina("include/admin_panel.php", 'cont_sodrzina');
+  });
+  
+$('#odjavi_me').bind('click', function() {
+	OdjaviMe();
+  });
+  
+</script>

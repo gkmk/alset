@@ -1,0 +1,22 @@
+<form action="#" method="post" id="login_form" name="login_form">
+	<label for="login_email">Корисник: </label><input type="text" id="login_email" class="ui-corner-all" name="email" />
+   	<label for="login_pass">Лозинка: </label><input type="password" id="login_pass" class="ui-corner-all"  name="password" />
+	<button id="user_login">Најави ме</button>
+    <button id="user_nov">Регистрирај ме</button>
+    <span id="login_form_error"></span>
+</form>
+
+<script>
+  $('#user_nov').bind('click', function() {
+	$('#cont_sodrzina').slideUp().load("render/registracija.html").slideDown();
+	return false;
+  });
+  $('#user_login').bind('click', function() {
+	  LogirajGo();
+	return false;
+  });
+  $('#login_form').submit( function() {
+	   LogirajGo();
+	  return false;
+  });
+</script>

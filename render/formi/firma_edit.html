@@ -1,0 +1,187 @@
+<div id="firma_edit_wrap">
+<script type="text/javascript" src="scripts/ajaxupload.js"></script>
+       
+<form action="#" method="post" enctype="multipart/form-data" name="user_detali" id="user_detali">
+<input type="hidden" id="staral" name="staral" value="staral" />
+<input type="hidden" id="user_mail" name="user_mail" value="user_mail" />
+<input id="user" name="user" type="hidden" />
+<table width="100%" border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <th scope="row">Име:</th>
+    <td><input id="ime" name="ime" type="text"></td>
+    <td>Внесете го името на фирмата.</td>
+  </tr>
+  <tr>
+    <th scope="row">Даночен Број:</th>
+    <td><input id="danocen" name="danocen" type="text"></td>
+    <td></td>
+  </tr>
+    <tr>
+    <th scope="row">Тип:</th>
+    <td><select id="tip" name="tip">
+        	<option value="Бутик">Бутик</option>
+    		<option value="Парфимерија">Парфимерија</option>
+        	<option value="Златара">Златара</option>
+        	<option value="Долна Облека">Долна Облека</option>
+        	<option value="Салон За Чевли">Салон За Чевли</option>
+        	<option value="Аксесоари">Аксесоари</option>
+            <option value="Ресторант">Ресторант</option>
+            <option value="Кафана">Кафана</option>
+            <option value="Кафич">Кафич</option>
+        	<option value="Паб">Паб</option>
+            <option value="Ноќен бар">Ноќен бар</option>
+        	<option value="Дискотека">Дискотека</option>
+        </select></td>
+    <td>Во "Аксесоари" спаѓаат типови на претпријатиа кои нудат бижутерија, чанти, каиши и разни модни додатоци.</td>
+  </tr>
+  <tr>
+    <th scope="row">Град:</th>
+    <td><select id="grad" name="grad">
+        	<option value="Штип">Штип</option>
+    		<option value="Скопје">Скопје</option>
+        	<option value="Прилеп">Прилеп</option>
+        	<option value="Струмица">Струмица</option>
+        	<option value="Битола">Битола</option>
+        	<option value="Охрид">Охрид</option>
+        </select></td>
+    <td>Градот во кој е лоцирано седиштето на фирмата.</td>
+  </tr>
+  <tr>
+    <th scope="row">Адреса:</th>
+    <td><input id="adresa" name="adresa" type="text"></td>
+    <td>Адреса на која се наоѓа фирмата.</td>
+  </tr>
+  <tr>
+    <th scope="row">Адреса 2:</th>
+    <td><input id="adresa2" name="adresa2" type="text"></td>
+    <td>Втора адреса доколку имате и втора локација.</td>
+  </tr>
+  <tr>
+   <th scope="row">Емаил 2:</th>
+    <td><input id="mail2" name="mail2" type="text"></td>
+    <td>Секундарен емаил. Овој емаил ќе се покажува како контакт кога ќе ја прегледуваат вашата фирма на сајтот. Незадолжително.</td>
+  </tr>
+  <tr>
+    <th scope="row">Телефон:</th>
+    <td><input id="telefon" name="telefon" type="text"></td>
+    <td>Вашиот телефон, фиксен.</td>
+  </tr>
+  <tr>
+   <th scope="row">Телефон 2:</th>
+    <td><input id="telefon2" name="telefon2" type="text"></td>
+    <td>Вашиот телефон, фиксен.</td>
+  </tr>
+  <tr>
+    <th scope="row">Мобилен:</th>
+    <td><input id="mobilen" name="mobilen" type="text"></td>
+    <td>Вашиот телефон, мобилен.</td>
+  </tr>
+  <tr>
+   <th scope="row">Мобилен 2:</th>
+    <td><input id="mobilen2" name="mobilen2" type="text"></td>
+    <td>Вашиот телефон, мобилен.</td>
+  </tr>
+  <tr>
+   <th scope="row">Мобилен 3:</th>
+    <td><input id="mobilen3" name="mobilen3" type="text"></td>
+    <td>Вашиот телефон, мобилен.</td>
+  </tr>
+  <tr>
+    <th scope="row">Слика:</th>
+    <td><input type="file" name="filename" value="Избери слика" />
+							<button onclick="ajaxUpload(this.form,'include/ajaxupload.php?filename=filename&amp;maxSize=3100000&amp;maxW=365&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=250','upload_area','Ве молиме почекајте додека да се прикачи сликата...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Грешка при закачувањето.'); return false;">Прикачи слика</button></td>
+    <td><div id="upload_area" class="cistac">Прикачете слика која ќе го претставува вашето претпријатие (виртуелен излог).</div></td>
+  </tr>
+  <tr>
+    <th scope="row">Инфо:</th>
+    <td><textarea id="firma_info" name="firma_info" cols="45" rows="10"></textarea></td>
+    <td>Опишете ја вашата фирма. Кратка биографија.</td>
+  </tr>
+  <tr>
+    <th scope="row">Лозинка:</th>
+    <td><input id="lozinka" name="lozinka" type="password"><input id="lozinka2" name="lozinka2" type="password"></td>
+    <td>Доколку сакате да ја промените вашата лозинка внесете нова во двете полиња.</td>
+  </tr>
+  <tr>
+    <th scope="row" colspan="3">
+    	<button onClick="firma_izmeni(); return false;">Промени</button>
+        <button onClick="$('#firma_edit_wrap').remove(); return false;">Затвори</button>
+    </th>
+  </tr>
+</table>
+
+</form>
+<div id="ue_notif"></div>
+
+<script>
+$(document).ready(function() {
+	//	potpolnuvanje na vrednosti
+	/*FirmaProfil = {
+	ime 	: '',
+	danocen : '',
+	tip 	: '',
+	slika	: '',
+	tel1	: '',
+	tel2	: '',
+	mob1	: '',
+	mob2	: '',
+	mob3	: '',
+	email	: '',
+	email1	: '',
+	adresa	: '',
+	adresa1	: '',
+	grad	: ''
+	*/
+	$('#user_mail').val(FirmaProfil.email);
+	$('#user').val(FirmaProfil.user);
+	
+  $('#ime').val(FirmaProfil.ime);
+  $('#danocen').val(FirmaProfil.danocen);
+  $("#tip option[value='"+FirmaProfil.tip+"']").attr('selected', 'selected');
+  $('#telefon').val(FirmaProfil.tel1);
+  $('#telefon2').val(FirmaProfil.tel2);
+  $('#mobilen').val(FirmaProfil.mob1);
+  $('#mobilen2').val(FirmaProfil.mob2);
+  $('#mobilen3').val(FirmaProfil.mob3);
+  $('#mail2').val(FirmaProfil.email1);
+  $('#adresa').val(FirmaProfil.adresa);
+  $('#adresa2').val(FirmaProfil.adresa1);
+  $("#grad option[value='"+FirmaProfil.grad+"']").attr('selected', 'selected');
+});
+
+function firma_izmeni() {
+	var staralozinka = prompt("Внесете ја вашата лозинка за да ги сочувате промените", "");
+	if(!staralozinka) {
+		alert("Мора да ја внесете вашата лозинка за да вршите промени.");
+	}
+	else {
+			 $('#staral').val(staralozinka);
+		$.post("include/AJAX/edit_firma.php", $("#user_detali").serialize(), function(data){
+		   novaNotifikacija(data, 'ue_notif');
+		   
+		   if (data == "Вашите измени се сочувани.") {
+						//FirmaProfil.ime = $('#ime').val();
+						FirmaProfil.tip = $("#tip").val();
+						FirmaProfil.danocen = $('#danocen').val();
+						
+						FirmaProfil.tel1 = $('#telefon').val();
+						FirmaProfil.tel2 = $("#telefon2").val();
+						FirmaProfil.mob1 = $('#mobilen').val();
+						FirmaProfil.mob2 = $('#mobilen2').val();
+						FirmaProfil.mob3 = $("#mobilen3").val();
+						FirmaProfil.email1 = $('#mail2').val();
+						FirmaProfil.adresa = $('#adresa').val();
+						FirmaProfil.adresa1 = $("#adresa2").val();
+						FirmaProfil.grad = $('#grad').val();
+						
+						if ($("#slika_pat").val())	{
+							FirmaProfil.slika = $("#slika_pat").val();
+							 $('#SlikaIzlog').css('background', "url("+FirmaProfil.slika+") center no-repeat");
+						}
+		   		}
+		});
+	}
+}
+
+</script>
+</div>

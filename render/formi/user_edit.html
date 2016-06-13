@@ -1,0 +1,156 @@
+<div id="user_edit_wrap">
+<script type="text/javascript" src="scripts/ajaxupload.js"></script>
+       
+<form action="#" method="post" enctype="multipart/form-data" name="user_detali" id="user_detali">
+<input type="hidden" id="user_mail" name="user_mail" value="email" />
+<input type="hidden" id="staral" name="staral" value="staral" />
+<table width="100%" border="1" cellspacing="1" cellpadding="1">
+  <tr>
+    <th scope="row">Име:</th>
+    <td><input id="ime" name="ime" type="text"></td>
+    <td>Внесете го вашето име.</td>
+  </tr>
+  <tr>
+    <th scope="row">Презиме:</th>
+    <td><input id="prezime" name="prezime" type="text"></td>
+    <td>Внесете го вашето презиме.</td>
+  </tr>
+  <tr>
+    <th scope="row">Град:</th>
+    <td><select id="grad" name="grad">
+        	<option value="Штип">Штип</option>
+    		<option value="Скопје">Скопје</option>
+        	<option value="Прилеп">Прилеп</option>
+        	<option value="Струмица">Струмица</option>
+        	<option value="Битола">Битола</option>
+        	<option value="Охрид">Охрид</option>
+        </select></td>
+    <td>Градот во кој што живеете.</td>
+  </tr>
+    <tr>
+    <th scope="row">Адреса:</th>
+    <td><input id="adresa" name="adresa" type="text"></td>
+    <td>Вашата моментална адреса на живеење.</td>
+  </tr>
+  <tr>
+    <th scope="row">Телефон:</th>
+    <td><input id="telefon" name="telefon" type="text"></td>
+    <td>Вашиот телефон, мобилен/фиксен.</td>
+  </tr>
+    <tr>
+    <th scope="row">Пол:</th>
+    <td><select id="pol" name="pol">
+        	<option value="1">Машко</option>
+    		<option value="0">Женско</option>
+        </select></td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <th scope="row">Дата на раѓање:</th>
+    <td><select id="godina" name="godina"></select>
+    <select id="mesec" name="mesec"></select>
+    <select id="den" name="den"></select>  
+    </td>
+    <td>Година, Месец, Ден</td>
+  </tr>
+  <tr>
+    <th scope="row">Сметка:</th>
+    <td><input id="smetka" name="smetka" type="text"></td>
+    <td>Вашата банкарска сметка.</td>
+  </tr>
+  <tr>
+    <th scope="row">Картичка:</th>
+    <td><select id="karticka" name="karticka">
+        	<option value="Visa">Visa</option>
+    		<option value="Master">Master</option>
+        </select></td>
+    <td>Типот на картичка за купување која ја користите.</td>
+  </tr>
+  <tr>
+    <th scope="row">Аватар:</th>
+    <td><input type="file" name="filename" value="Избери слика" />
+							<button onclick="ajaxUpload(this.form,'include/ajaxupload.php?filename=filename&amp;maxSize=3100000&amp;maxW=200&amp;relPath=../uploads/&amp;colorR=255&amp;colorG=255&amp;colorB=255&amp;maxH=250','upload_area','Ве молиме почекајте додека да се прикачи сликата...&lt;br /&gt;&lt;img src=\'images/loader_light_blue.gif\' width=\'128\' height=\'15\' border=\'0\' /&gt;','&lt;img src=\'images/error.gif\' width=\'16\' height=\'16\' border=\'0\' /&gt; Грешка при закачувањето.'); return false;">Прикачи слика</button></td>
+    <td><div id="upload_area" class="cistac">Прикачете своја слика за аватар.</div></td>
+  </tr>
+  <tr>
+    <th scope="row">Лозинка:</th>
+    <td><input id="lozinka" name="lozinka" type="password"><input id="lozinka2" name="lozinka2" type="password"></td>
+    <td>Доколку сакате да ја промените вашата лозинка внесете нова во двете полиња.</td>
+  </tr>
+  <tr>
+    <th scope="row" colspan="3">
+    	<button onClick="user_izmeni(); return false;">Промени</button>
+        <button onClick="$('#user_edit_wrap').remove(); return false;">Затвори</button>
+    </th>
+  </tr>
+</table>
+
+</form>
+<div id="ue_notif"></div>
+
+<script>
+$(document).ready(function() {
+	
+	//	generiranje na dati DEN MESEC GODINA
+	for (var i=1; i<=31; i++) {
+	  var tmp = i;
+	  if (tmp < 10) tmp = '0'+i;
+	  $("#den").append('<option value="'+tmp+'">'+tmp+'</option>');
+	  if (i <= 12)
+	  	$("#mesec").append('<option value="'+tmp+'">'+tmp+'</option>');
+  }
+  for (var i=1900; i<=2005; i++) {
+	  $("#godina").append('<option value="'+i+'">'+i+'</option>');
+  }
+	
+	//	potpolnuvanje na vrednosti
+	//email 	ime 	prezime 	grad 	telefon 	dnr 	smetka 	karticka 	adresa 		avatar 		pol 	acc
+  $('#ime').val(UserProfil.data.ime);
+  $('#prezime').val(UserProfil.data.prezime);
+  $('#user_mail').val(UserProfil.data.email);
+  $("#grad option[value='"+UserProfil.data.grad+"']").attr('selected', 'selected');
+  $('#adresa').val(UserProfil.data.adresa);
+  $('#telefon').val(UserProfil.data.telefon);
+  $("#pol option[value='"+UserProfil.data.pol+"']").attr('selected', 'selected');
+  var datum = new Array ();
+  datum[0] = UserProfil.data.dnr.substring(0, 4);
+  datum[1] = UserProfil.data.dnr.substring(5, 7);
+  datum[2] = UserProfil.data.dnr.substring(8, 10);
+  $("#den option[value='"+datum[2]+"']").attr('selected', 'selected');
+  $("#mesec option[value='"+datum[1]+"']").attr('selected', 'selected');
+  $("#godina option[value='"+datum[0]+"']").attr('selected', 'selected');
+  $('#smetka').val(UserProfil.data.smetka);
+  $("#karticka option[value='"+UserProfil.data.karticka+"']").attr('selected', 'selected');
+});
+
+function user_izmeni() {
+	var staralozinka = prompt("Внесете ја вашата лозинка за да ги сочувате промените", "");
+	if(!staralozinka) {
+		alert("Мора да ја внесете вашата лозинка за да вршите промени.");
+	}
+	else {
+			 $('#staral').val(staralozinka);
+		$.post("include/AJAX/edit_profile.php", $("#user_detali").serialize(), function(data){
+		   novaNotifikacija(data, 'ue_notif');
+		   
+		   if (data == "Вашите измени се сочувани.") {
+						UserProfil.data.ime = $('#ime').val();
+						UserProfil.data.prezime = $('#prezime').val();
+						UserProfil.data.grad = $("#grad").val();
+						UserProfil.data.telefon = $('#telefon').val();
+						UserProfil.data.dnr = $("#godina").val()+"-"+$("#mesec").val()+"-"+$("#den").val();
+						UserProfil.data.smetka = $("#smetka").val();
+						UserProfil.data.karticka = $("#karticka").val();
+						UserProfil.data.adresa = $("#adresa").val();
+						UserProfil.data.pol = $("#pol").val();
+						if ($("#slika_pat").val())	{
+							UserProfil.data.slika = $("#slika_pat").val();
+							 $('#korisnikslika').css('background', "url("+UserProfil.data.slika+") center no-repeat");
+						}
+		   		}
+		});
+	}
+}
+
+</script>
+</div>

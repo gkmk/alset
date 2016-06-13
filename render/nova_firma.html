@@ -1,0 +1,53 @@
+<div id="korisnik-kreiranje">
+<h2>Чекор 2 - Потполнување на лични информации</h2>
+<hr />
+<div id="nov_k_telo" class="namesti-levo margina20">
+<form action="#" method="post" id="nova_firma_forma">
+<table>
+	<tr>
+    	<th>Корисничко име</th><td><input type="text" name="ime" maxlength="15" /></td><td><span id="ime_error"></span></td>
+    </tr>
+    <tr>
+    	<th>Емаил</th><td><input type="text" name="valid_email" maxlength="30" /></td><td><span id="email_error"></span></td>
+    </tr>
+    <tr>
+    	<th>Лозинка</th><td><input type="password" name="lozinka" /></td><td><span id="pass_error"></span></td>
+    </tr>
+    <tr>
+    	<th>Повторете лозинка</th><td colspan="2"><input type="password" name="lozinka_2" /></td>
+    </tr>
+    <tr>
+    	<th>Град</th>
+        <td colspan="2"><select id="grad" name="grad">
+        	<option value="Штип">Штип</option>
+    		<option value="Скопје">Скопје</option>
+        	<option value="Прилеп">Прилеп</option>
+        	<option value="Струмица">Струмица</option>
+        	<option value="Битола">Битола</option>
+        	<option value="Охрид">Охрид</option>
+        </select></td>
+    </tr>
+</table>
+</form>
+</div>
+<div id="nov_k_info_box" class="namesti-desno tenka-temna-linija margina20">
+</div>
+
+<div id="forma_greska" class="cistac"></div>
+<div class="cistac"></div>
+</div>
+
+<script type="text/javascript">
+$('input, select, div').addClass("ui-corner-all");
+
+$('#nov_k_info_box').simpleCaptcha({
+    numImages: 6
+  });
+
+$("#nova_firma_forma").keypress(function(event) {
+  if (event.keyCode == '13') {
+		$('#create_next').click();
+	 return false; 
+  }
+ });
+</script>

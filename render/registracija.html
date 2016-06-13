@@ -1,0 +1,271 @@
+<div id="new_user_gore" class="ui-corner-top">
+<div id="tabs">
+			<ul>
+				<li><a href="#tabs-1">Чекор 1</a></li>
+			  	<li><a href="#tabs-2">Чекор 2</a></li>
+			  	<li><a href="#tabs-3">Чекор 3</a></li>
+			</ul>
+			<div id="tabs-1"><h2>Чекор 1 - Вид на профил</h2><hr /><h3>Сакате да се регистрирате како:</h3><br />
+			  <div id="radioset">
+					<input type="radio" id="radio1" name="radio" value="1"><label for="radio1">Претпријатие</label>
+					<input type="radio" id="radio2" name="radio" value="0" checked="checked"><label for="radio2">Корисник</label>
+				</div>          
+            </div>
+			<div id="tabs-2"></div>
+			<div id="tabs-3"><h2>Чекор 3 - Креирање</h2><hr /><span  id="kreiranje_info"></span></div>
+</div>
+</div>
+<div id="new_user_dole" class="ui-corner-bottom">
+
+<div id="progressbar"></div>
+
+<button id="create_back">< Назад</button>
+<button id="create_next">Понатаму ></button>
+</div>  
+<script>
+$('#tabs').tabs().tabs( "disable" , 1 ).tabs( "disable" , 2 );
+$("#radioset").buttonset();
+InicijalizirajKopcinja();
+
+$('input:radio').click(function()
+{
+	$('input:radio').button({
+		icons: {
+    	primary: ''
+  		}
+	});
+	$(this).button({
+  		icons: {
+    	primary: 'ui-icon-circle-check'
+  		}
+	});
+});
+
+$('input:radio').trigger('click');
+
+$('#create_back').bind('click', function() {
+	var Tab=$("#tabs").tabs('option', 'selected');
+	BackTab(Tab);
+    });
+$('#create_back').hide();
+	
+$('#create_next').bind('click', function() {
+	var Tab=$("#tabs").tabs('option', 'selected');
+	CheckData(Tab);
+    });
+
+function CheckData(Tab) {
+	if (Tab == 0) { 	
+	$("#tabs").slideUp( function() {
+		var selektiran = $("input:radio:checked").val();
+		if (selektiran == 0) $("#tabs-2").load("render/nov_korisnik.html", function() {
+			$("#tabs").slideDown();
+			NextTab(Tab);
+		}); // VCITAJ FORMA ZA KORISNIK
+		else $("#tabs-2").load("render/nova_firma.html", function() {
+			$("#tabs").slideDown();
+			NextTab(Tab);
+		});	// VCITAJ FORMA ZA FIRMA
+		 
+		$( "#progressbar" ).progressbar({
+			value: 33
+			}); 
+		});	
+		}
+	else if (Tab == 1) {				
+		Validiraj(Tab);
+		}
+	else if (Tab == 2) {
+		//	CEKOR 3
+		}
+	else alert("Грешка во системот.");
+}
+
+function BackTab(Tab) {
+	if (Tab == 1) {
+		$('#create_back').hide();
+		$('#create_next').button( "option", "label", "Понатаму >" );
+	}
+	$('#tabs').tabs( "enable" , Tab-1 );
+	$("#tabs").tabs( "select", Tab-1 );
+	$('#tabs').tabs( "disable" , Tab );
+}
+
+function NextTab(Tab) {
+	switch (Tab) {
+		case 0:
+		$('#create_back').show();
+		$('#create_next').button( "option", "label", "Креирај" );
+		break;
+		
+		case 1:
+		$('#create_back').hide();
+		$('#create_next').hide();
+		break;
+	}
+	
+	$('#tabs').tabs( "enable" , Tab+1 );
+	$("#tabs").tabs( "select", Tab+1 );
+	$('#tabs').tabs( "disable" , Tab );
+}
+
+function Validiraj(Tab) {
+	
+	$('#create_next').button( "disable" );
+	
+	$('#forma_greska').html("<p>Проверка...</p><img src='css/sliki/kniga.gif' width='100px' height='50px' />");
+	
+	var rezultat = true;
+	var greska="";
+	
+	var selektiran = $("input:radio:checked").val();
+	var selectedCaptcha = $("input:[name='captchaSelection']").val();
+	var emailAddress = $("input:[name='valid_email']").val();
+	
+	$("#ime_error").empty();
+	$("#email_error").empty();
+	$("#pass_error").empty();
+	var ime = $("input:[name='ime']").val();
+	
+	$.post("include/captcha.php", { captchaSelection: selectedCaptcha }, function(data) {
+		//	PROVERKA NA CAPTCHA
+		if(data != "OK") {
+			rezultat = false;
+			greska='<p>Изберете ја соодветната икона десно.</p>';
+			$('#nov_k_info_box').simpleCaptcha({
+		    numImages: 6
+			});
+		}
+		//	PROVERKA NA CAPTCHA KRAJ
+		
+		//	PROVERKA NA MAIL DALI POSTOE VEKE
+
+		var Baranje = $.md5("DaliPostoi") + "^" + emailAddress;
+		//	PROVERKA NA KORISNICKI EMAIL
+		$.post("include/AJAX.php", { izvrsi: Baranje }, function(data) {
+		if(data > 0) {
+			rezultat = false;
+			$('#email_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+='<p>Веќе имаме регистрирано корисник со тој емаил.</p>';
+		}
+		
+		//	PROVERKA NA REG FIRMA
+		if (selektiran != 0) {
+		Baranje = "FirmaPostoi^"+ime;
+		$.post("include/AJAX.php", { izvrsi: Baranje }, function(data) {
+		if(data > 0) {
+			rezultat = false;
+			$('#ime_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+='<p>Веќе ја имаме регистрирано таа фирма.</p>';
+			}
+		});
+		}
+		//	PROVERKA NA КОТНТАКТ ЕМАИЛ FIRMA
+		Baranje = "FirmaMail^"+emailAddress;
+		$.post("include/AJAX.php", { izvrsi: Baranje }, function(data) {
+		if(data > 0) {
+			rezultat = false;
+			$('#email_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+='<p>Веќе го имаме тој емаил во базата.</p>';
+			}
+		});
+		
+		if (ime.length < 2) { 
+		$('#ime_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+		greska+="<p>Името мора да биде подолго од 2 букви.</p>";
+		rezultat=false;
+		}
+		/*else if (!samoBukvi(ime)) {
+			$('#ime_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+="<p>Името може да содржи само букви.</p>";
+			rezultat=false;
+		}*/
+		
+		if ($("input:[name='lozinka']").val().length < 5) { 
+			$('#pass_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+="<p>Лозинката мора да биде подолга од 5 карактери.</p>";
+			rezultat=false;
+		}	
+		if ($("input:[name='lozinka']").val() !=  $("input:[name='lozinka_2']").val()) { 
+			$('#pass_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+="<p>Повторете ја лозинката и во второто поле.</p>";
+			rezultat=false;
+		}	
+		if (!isValidEmailAddress( $("input:[name='valid_email']").val() )) { 
+			$('#email_error').html("<span class='ui-icon ui-icon-alert' style='float: left; margin-right: .3em;'></span>");
+			greska+="<p>Невалиден емаил.</p>";
+			rezultat=false;
+		}
+		
+		$('#forma_greska').html(greska);
+	
+		$('#create_next').button( "enable" );
+	
+		if (rezultat) {
+			$( "#progressbar" ).progressbar({
+				value: 66
+				}); 				
+			NextTab(Tab);		
+			
+			if (selektiran == 0)	KreirajKorisnik();
+			else KreirajFirma();
+		}
+		
+		},'json');	
+		
+		},'json');	
+}
+
+//	----------------------------FUNKCIJA ZA REGISTRACIJA NA KORISNIK
+function KreirajKorisnik() {
+	$('#create_next').remove();
+	
+	$('#kreiranje_info').html("<img src='css/sliki/SendUserInfo.gif' /><p>Креирање на вашиот профил...</p>");
+	
+	$( "#progressbar" ).progressbar({ value: 77	});
+	//email, ime, prezime, grad, telefon, data_na_raganje, smetka, karticka, adresa, lozinka, avatar, validacija ---- telefon  adresa  datanr
+	var Baranje = $.md5("KreirajKorisnik") 
+	+ "^" + $("input:[name='valid_email']").val()+ "^" + $("input:[name='ime']").val()+ "^" + $("input:[name='prezime']").val()
+	+ "^" + $("#grad").val()+ "^NULL^NULL^0^NULL^NULL^" + $.md5($("input:[name='lozinka']").val()) + "^0^NULL^" + $("#pol").val();
+	
+	$( "#progressbar" ).progressbar({ value: 85	});
+	$.post("include/AJAX.php", { izvrsi: Baranje }, function(data) {
+		if(data.ok == 1) { 
+			$( "#progressbar" ).progressbar({
+				value: 100
+				}); 	
+			$('#kreiranje_info').html("<h2>Профилот е креиран успешно!</h2>"+data.mail);
+			
+		}
+		else $('#kreiranje_info').html("<h2>Имаше грешка при креирањето на профилот:</h2>"+data.error);
+		},'json');	
+}
+//	----------------------------
+
+//	----------------------------FUNKCIJA ZA REGISTRACIJA NA FIRMA
+function KreirajFirma() {
+	$('#create_next').remove();
+	
+	$('#kreiranje_info').html("<img src='css/sliki/SendUserInfo.gif' /><p>Креирање на нова фирма...</p>");
+	
+	$( "#progressbar" ).progressbar({ value: 77	});
+	//danocen_br, ime_pret, tip_pret, kontakt_id, slika, validacija ----
+	var Baranje = "KreirajFirma^"
+	+ $("input:[name='valid_email']").val()+ "^" + $("input:[name='ime']").val()+ "^" 
+	+ $.md5($("input:[name='lozinka']").val()) + "^" + $("#grad").val();
+	
+	$( "#progressbar" ).progressbar({ value: 85	});
+	$.post("include/AJAX.php", { izvrsi: Baranje }, function(data) {
+		if(data.ok == 1) { 
+			$( "#progressbar" ).progressbar({
+				value: 100
+				}); 	
+			$('#kreiranje_info').html("<h2>Профилот е креиран успешно!</h2>"+data.mail);
+			
+		}
+		else $('#kreiranje_info').html("<h2>Имаше грешка при креирањето на профилот:</h2>"+data.error);
+		},'json');	
+}
+//	----------------------------
+
+</script>

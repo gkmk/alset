@@ -1,0 +1,120 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="Description" content="Alset - изберете и купете облека од дома, а потоа изберете го локалот каде што сакате да излезете." />
+<meta name="Keywords" content="alset, fashion, style, night, life, stil, sema, moda, makedonia, macedonia, bluza, patika, majca, farmerki" />
+<link rel="stylesheet" href="css/main.css" />
+<link rel="stylesheet" href="css/creation.css" />
+<link rel="stylesheet" href="css/black-tie/jquery-ui-1.8.6.custom.css" />
+<link rel="stylesheet" href="css/queryLoader.css" />
+<link rel="stylesheet" href="css/hajdiProfil.css" />
+<script type="text/javascript" src="scripts/jquery-1.4.3.min.js"></script>
+<script type="text/javascript" src="scripts/jquery-ui-1.8.6.custom.min.js"></script>
+<script type="text/javascript" src="scripts/jquery.md5.js"></script>
+<script type="text/javascript" src="scripts/captcha/jquery.simpleCaptcha-0.2.js"></script>
+<script type="text/javascript" src="scripts/captcha/jquery.simpleCaptcha-0.2.js"></script>
+<script type="text/javascript" src="scripts/inicijalizacija-na-jquery.js"></script>
+<script type="text/javascript" src="scripts/funkcii.js"></script>
+<!--<script type="text/javascript" src="scripts/snowstorm.js"></script>-->
+<script type="text/javascript" src="scripts/queryLoader.js"></script>
+
+<title>Alset</title>
+
+<script type="text/javascript">
+
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-20832723-1']);
+  _gaq.push(['_trackPageview']);
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+
+</script>
+
+</head>
+
+<body>
+<!-- BEGIN GLAVEN KONTEJNER -->
+<div id="glaven">
+
+<!-- BEGIN TOP LOGO -->
+<div id="top">
+<div id="top_kontejner">
+	<div id="top_levo" class="namesti-levo" title="Почетна"></div>
+    <div id="top_baraj" class="namesti-levo">
+    	<input type="text" name="baraj_text" id="baraj_text" class="ui-corner-all svetol_text" value="Барајте..."  />
+        <button id="baraj">Барај</button>
+        <img src="css/sliki/ajax-loader-bel.gif" style="display:none" id="baraj_icon" alt="baraj-ikona" />
+    </div>
+    <div id="top_desno" class="namesti-desno">
+    <img id="bkg_load" src="css/sliki/pic_load.gif" align="left" style="display:none" alt="vcituvanje" />
+    <div id="izgled">
+    <p style="color:#999">Изберете изглед</p>
+    <select id="tema_select" name="tema_select" class="ui-corner-all">
+	    <option value="grey">Сива</option>
+    	<option value="red">Црвена</option>
+        <option value="blue">Сина</option>
+        <option value="pink">Розева</option>
+        <option value="violet">Виолетова</option>
+        <option value="yellow">Жолта</option>
+    </select>
+    </div>
+    </div>
+</div>
+</div>
+<!-- END TOP LOGO -->
+
+<!-- BEGIN SREDINA -->
+<div id="sredina" class="ui-corner-all srebrena-75 debela-temna-linija">
+
+<!-- KORISNIK | MENI | NAJAVA | NOV KORISNIK -->
+<div id="korisnik" class="ui-corner-bottom normalna-temna-linija">
+<!-- BEGIN TOP MENI -->
+<div id="top_menu" class="crna-tema">
+
+<!-- BEGIN najava-kreiraj FORMA -->
+<div id="najava-kreiraj">
+<!-- BEGIN LOGIN FORMA -->
+<div id="login" class="namesti-levo"></div>
+<!-- END LOGIN FORMA -->
+
+<div id="kreiranje-user" class="namesti-desno">
+<button id="user_otkazi">Затвори</button>
+</div>
+
+</div>
+<!-- END najava-kreiraj MENI -->
+
+<!-- BEGIN USER MENI -->
+<div id="user_meni" >
+<a href="#" onclick="prikaziKorisnickoMeni('true')" id="korisnik_a">Корисничко мени</a>
+</div>
+<!-- END USER MENI -->
+</div>
+<!-- END TOP MENI -->
+</div>
+<!-- END KORISNIK | MENI | NAJAVA | NOV KORISNIK -->
+
+<!-- BEGIN SODRZINATA NA SAJTOT -->
+<div id="content" class="srebrena-75 normalna-temna-linija ui-corner-all">
+<div id="informacii"></div>
+<div id="cont_sodrzina"></div>
+</div>
+<!-- END SODRZINATA NA SAJTOT -->
+
+</div>
+<!-- END SREDINA -->
+
+</div>
+<!-- END GLAVEN KONTEJNER -->
+
+<!-- BEGIN FOOTER -->
+<div id="footer"></div>
+<!-- END FOOTER -->
+<script type='text/javascript'>
+	QueryLoader.init();
+</script>

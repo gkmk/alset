@@ -1,0 +1,46 @@
+@charset "utf-8";
+/* CSS Document */
+
+#new_user_gore {
+	margin:10px 0;
+}
+/*
+#korisnik-kreiranje {
+	height:270px;
+}*/
+#korisnik-kreiranje select {
+	width:144px;
+}
+#korisnik-kreiranje th,#korisnik-kreiranje  input,#korisnik-kreiranje  h2 {
+	background-color:#FFF;
+	color:#000;
+}
+
+#nov_k_telo {
+	width:400px;
+}
+
+#nov_k_info_box {
+	padding:20px;
+	width:320px;
+}
+#nov_k_info_box p {
+	color:#999;
+}
+#forma_greska {
+	position:relative;
+	width:400px;
+	padding:10px 0;
+}
+#forma_greska p {
+	background-color:#FFCC99;
+	color:#000;
+}
+
+.note { font-size: 0.8em; color: #666; }
+
+.captchaImage { margin: 0 2px; }
+.simpleCaptchaSelected { border: 2px solid #393; }
+.captchaText {	font-weight:bold; }
+.margina20 { margin:20px; }
+.pading15 {padding: 15px; }

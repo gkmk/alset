@@ -1,0 +1,125 @@
+<div id="ProfilCel" class="namesti-levo">
+<div id="UpProfil" class="namesti-levo">
+<div id="SlikaIzlog" class="Slika namesti-levo DivBorder">
+      <h2 id="Info"><span id="wlc_str">Добредојдовте &nbsp; <a id="firma_ime" href="#" onclick="vcitajSodrzina('render/formi/firma_edit.html', 'MiddleProfil')" title="Детали">(ИМЕ)Versace</a></span></h2>
+</div>      
+<div id="SlikaPosProdukt" class="Slika namesti-levo DivBorder">
+     <img id="p_slika" src="" alt="SlikaOdProdukt" width="365" height="250"  />
+      <h2 id="Info"><span>Последен додаден продукт:&nbsp;<br />&nbsp;<span id="p_produkt" >Нема</span></span></h2>
+</div>
+<div id="EdenDvaFont"  class="EdenDvaTri namesti-levo DivBorder">
+<table border="1">
+<tr><td width="200px" height="80px" background="materijal/Eden.jpg" align="right" valign="bottom" >
+	<INPUT type="button" value="Измени детали" onclick="vcitajSodrzina('render/formi/firma_edit.html', 'MiddleProfil')">
+</td></tr>
+<tr><td width="200px" height="77px" background="materijal/Dva.jpg" align="right" valign="bottom" >
+	<INPUT type="button" value="Додади продукт" onclick="vcitajSodrzina('render/formi/nov_produkt.html', 'MiddleProfil')">
+</td></tr>
+<tr><td width="200px" height="77px" background="materijal/Tri.jpg" align="right" valign="bottom" >
+	<INPUT type="button" value="Измени продукт" onclick="">
+</td></tr>
+</table>
+</div>
+</div>
+<div id="MiddleProfil" class="namesti-levo DivBorderMiddle"></div>
+
+<div id="BottomProfil" class="namesti-levo">
+	<div id="PrvaKolonaPretp" style="width:49.7%" class="namesti-levo  DivBorderMiddle">
+    <h1 class="crna-tema">Слични фирми</h1>
+    	<div id="galerija_firmi" class="images"></div>
+    </div>
+      
+	<div id="VtoraKolonaProdukt" style="width:49.7%" class="namesti-levo DivBorderMiddle">
+    <h1 class="crna-tema">Наши продукти</h1>
+      <div id="galerija_produkti" class="images"></div>
+    </div>
+</div> 
+<div class="cistac"></div>
+</div>
+<div class="cistac"></div>
+
+<script type="text/javascript" src="plugins/galeria/galleria.js"></script>
+<script>
+$(document).ready(function() { // - ------- DOCUMENT READY START
+	
+	var poster, tip;
+	if (FirmaView.danocen) {
+		$('#SlikaPosProdukt').remove();
+		$('#EdenDvaFont').html("<pre>"+FirmaView.info+"</pre>");
+		$('#EdenDvaFont').addClass("dark-75");
+		$('#EdenDvaFont').css({ color:"#FFF", width:"571px" });
+		$('#wlc_str').html("Добредојде во &nbsp; <br/> &nbsp; "+FirmaView.ime);
+		poster = FirmaView.danocen;
+		tip = FirmaView.tip;
+		if (FirmaView.slika != "0") $('#SlikaIzlog').css('background', "url("+FirmaView.slika+") center no-repeat");
+		else $('#SlikaIzlog').css('background', "url(materijal/nema_slika.jpg) center no-repeat");
+	}
+	else {
+		$('#firma_ime').html(FirmaProfil.ime);
+		poster = FirmaProfil.user;
+		tip = FirmaProfil.tip;
+		if (FirmaProfil.slika != "0") $('#SlikaIzlog').css('background', "url("+FirmaProfil.slika+") center no-repeat");
+		else $('#SlikaIzlog').css('background', "url(materijal/nema_slika.jpg) center no-repeat");
+	}
+	
+		/*$.post("include/AJAX.php", { izvrsi : "favFirma" }, function(data){
+			
+		},'json');*/
+		Galleria.loadTheme('plugins/galeria/themes/classic/galleria.classic.js');	
+	
+	$.post('include/AJAX.php', { izvrsi : "zemiProdukti^"+poster }, function (data) {
+		if (data.error) { $('#galerija_produkti').text(data.error); }
+		else {
+			var x=0;
+			while (data[x])
+			{
+				var cena = data[x]; x++;
+				var tip  = data[x]; x++;
+				var slika= data[x]; x++;
+				$('#galerija_produkti').append("<a href='#'><img src=\""+slika+"\" alt=\""+cena+" денари\" title=\""+tip+"\" /></a>");
+				if (x == 3) {
+					$('#p_slika').attr("src", slika);
+					$('#p_produkt').text( tip );
+				}
+			}
+			
+			$('#galerija_produkti').galleria({
+				height	: 300,
+				autoplay: 7000,
+				on_image: function( image, thumb ) {
+					var galleryp = this;
+					$( image ).click( function() {
+						galleryp.openLightbox();
+					})
+				}
+			});
+		}
+	},"json");
+	
+	$.post('include/AJAX.php', { izvrsi : "zemiSlicniFirmi^"+poster+"^"+tip }, function (data) {
+		if (data.error) { $('#galerija_firmi').text(data.error); }
+		else {
+			var x=0;
+			while (data[x])
+			{
+				var ime = data[x]; x++;
+				var tip  = data[x]; x++;
+				var slika= data[x]; x++;
+				var firma_id= data[x]; x++;
+				$('#galerija_firmi').append("<a href=\"javascript:vcitajFirma('"+firma_id+"', 'cont_sodrzina');\"><img src=\""+slika+"\" alt=\""+tip+"\" title=\""+ime+"\" /></a>");
+			}
+			$('#galerija_firmi').galleria({
+				height	: 300,
+				autoplay: 5000,
+				on_image: function( image, thumb ) {
+					var galleryf = this;
+					/*$( image ).click( function() {
+						vcitajFirma($( this ).val(), 'cont_sodrzina');
+					})*/
+				}
+			});
+		}
+	},"json");
+	
+});// - ------- DOCUMENT READY END
+</script>

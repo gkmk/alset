@@ -1,0 +1,81 @@
+@charset "utf-8";
+/* CSS Document */
+.DivBorder {
+	border:#666 solid medium;
+}
+.DivBorderMiddle {
+	border:#666 solid thin;
+}
+#ProfilCel {
+	width:950px;
+	position:relative;
+}
+#ProfilCel a {
+	color:#333;
+}
+#UpProfil {
+	position:relative;
+	width:950px;
+	height:256px;
+}
+#MiddleProfil {
+	position:relative;
+	width:946px;
+	height:auto;
+}
+#BottomProfil {
+	position:relative;
+	width:950px;
+	height:auto;
+}
+
+.Slika {
+   position: relative;
+   width: 365px; /* for IE 6 */
+   height: 250px;
+}
+#Info {
+   position: absolute;
+   top: 150px;
+   left: 0;
+   width: 100%;
+}
+#Info span {
+   color: #000;
+   text-align:left;
+   font: 18px/45px Helvetica, Sans-Serif;
+   letter-spacing: -1px;
+   background: rgb(190 , 190 , 190 ); /* fallback color */
+   background: rgba(190 , 190 , 190 , 0.7);
+   padding: 10px;
+}
+.SlikaProfil {
+   position: relative;
+   width: 200px; /* for IE 6 */
+   height: 250px;
+}
+#InfoProfil {
+   position: absolute;
+   top: 216px;
+   left: 0;
+   width: 100%;
+}
+#InfoProfil span {
+   color:#000;
+   text-align:left;
+   font: 16px/30px Helvetica, Sans-Serif;
+   letter-spacing: -1px;
+   background: rgb(190 , 190 , 190); /* fallback color */
+   background: rgba(190 , 190 , 190 , 0.7);
+   padding: 10px;
+}
+.EdenDvaTri {
+	width:200px;
+	height:250px;
+	position:relative;
+}
+#EdenDvaFont {
+   color:#000;
+   text-align:center
+   font: 24px,  Helvetica, Sans-Serif;
+}

@@ -1,0 +1,35 @@
+<div id="ProfilCel" class="namesti-levo">
+<div id="UpProfil" class="namesti-levo">
+<div id="Produkt" class="Slika  namesti-levo DivBorder">
+     <img src="materijal/Alexander Mqueen boots-7.jpg" alt="SlikaOdPretprijatie" width="365" height="250" />
+      <h2 id="Info"><span>Последен фаворизиран продукт:&nbsp;<br />&nbsp;<a href="BOJA VELICINA A-U ZA PRODUKT" title="Детали за продукт" >ВО ИЗРАБОТКА</a></span></h2>
+</div>
+<div id="Pretprijatie" class="Slika namesti-levo DivBorder">
+     <img src="materijal/ny_5th_avenue_shopping_versace_01_1331.jpg" alt="SlikaOdPretprijatie" width="365" height="250" />
+      <h2 id="Info"><span>Последно фаворизирано претпријатие:&nbsp;<br />&nbsp;<a href="PRIKAAZI GO PRETPRIJATIETO" title="Детали за претпријатие" >ВО ИЗРАБОТКА</a></span></h2>
+</div>      
+<div id="KorisnikProfil" class="SlikaProfil namesti-levo DivBorder" style="background:url(materijal/nema_slika.jpg) center no-repeat">
+     <h2 id="InfoProfil"><span><a id="imeprezime" href="#" onclick="vcitajSodrzina('render/formi/user_edit.html', 'MiddleProfil')" title="Измени Детали">Име Презиме</a></span></h2>
+</div>
+</div>
+<div id="MiddleProfil" class="namesti-levo DivBorderMiddle"></div>
+
+<div id="BottomProfil" class="namesti-levo">
+	<div id="PrvaKolonaPretp" style="width:49.7%" class="namesti-levo  DivBorderMiddle">Во изработка</div>
+    
+    <div id="VtoraKolonaProdukt" style="width:49.7%" class="namesti-levo  DivBorderMiddle">Во изработка</div>
+</div> 
+<div class="cistac"></div>
+</div>
+<div class="cistac"></div>
+
+<script>
+$(document).ready(function() {
+	$('#imeprezime').html(UserProfil.data.ime + ' ' + UserProfil.data.prezime);
+	if (UserProfil.data.slika != "0") $('#KorisnikProfil').css('background', "url("+UserProfil.data.slika+") center no-repeat");
+
+	/*$.post("include/AJAX.php", { izvrsi : "favFirma" }, function(data){
+		
+	},'json');*/
+});
+</script>
